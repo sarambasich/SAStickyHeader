@@ -13,6 +13,8 @@
 		F8264E381B2A8E3C00D81E36 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8264E371B2A8E3C00D81E36 /* Images.xcassets */; };
 		F8264E3B1B2A8E3C00D81E36 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8264E391B2A8E3C00D81E36 /* LaunchScreen.xib */; };
 		F8264E471B2A8E3C00D81E36 /* SAStickyHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8264E461B2A8E3C00D81E36 /* SAStickyHeaderTests.swift */; };
+		F88C59E31BAB9CDF00DCCECD /* SAStickyHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C59E21BAB9CDF00DCCECD /* SAStickyHeaderViewController.swift */; };
+		F88C59E51BABA1A700DCCECD /* MyStickerHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C59E41BABA1A700DCCECD /* MyStickerHeaderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		F8264E401B2A8E3C00D81E36 /* SAStickyHeaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SAStickyHeaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8264E451B2A8E3C00D81E36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8264E461B2A8E3C00D81E36 /* SAStickyHeaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAStickyHeaderTests.swift; sourceTree = "<group>"; };
+		F88C59E21BAB9CDF00DCCECD /* SAStickyHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAStickyHeaderViewController.swift; sourceTree = "<group>"; };
+		F88C59E41BABA1A700DCCECD /* MyStickerHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStickerHeaderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 				F8264E371B2A8E3C00D81E36 /* Images.xcassets */,
 				F8264E391B2A8E3C00D81E36 /* LaunchScreen.xib */,
 				F8264E2E1B2A8E3C00D81E36 /* Supporting Files */,
+				F88C59E21BAB9CDF00DCCECD /* SAStickyHeaderViewController.swift */,
+				F88C59E41BABA1A700DCCECD /* MyStickerHeaderViewController.swift */,
 			);
 			path = SAStickyHeader;
 			sourceTree = "<group>";
@@ -213,7 +219,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8264E331B2A8E3C00D81E36 /* ViewController.swift in Sources */,
+				F88C59E51BABA1A700DCCECD /* MyStickerHeaderViewController.swift in Sources */,
 				F8264E311B2A8E3C00D81E36 /* AppDelegate.swift in Sources */,
+				F88C59E31BAB9CDF00DCCECD /* SAStickyHeaderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +419,7 @@
 				F8264E4C1B2A8E3C00D81E36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F8264E4D1B2A8E3C00D81E36 /* Build configuration list for PBXNativeTarget "SAStickyHeaderTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +428,7 @@
 				F8264E4F1B2A8E3C00D81E36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
