@@ -22,6 +22,8 @@ class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hidesNavigationBar = false
 
         // Do any additional setup after loading the view.
     }

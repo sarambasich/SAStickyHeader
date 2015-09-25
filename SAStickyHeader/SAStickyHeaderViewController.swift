@@ -21,6 +21,18 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     /// when the scroll offset is zero.
     var headerHeightDefault: CGFloat = 192.0
     
+    /// Whether to hide the navigation bar when the top of the table
+    /// view content is reached via scrolling
+    var hidesNavigationBar: Bool = true {
+        didSet {
+            if hidesNavigationBar {
+                scrollViewDidScroll(scrollView)
+            } else {
+                navigationController?.navigationBar.alpha = 1.0
+            }
+        }
+    }
+    
     /// The constraint dictating the height of the header view
     var headerHeightConstraint: NSLayoutConstraint! {
         if let cs = headerView.constraints() as? [NSLayoutConstraint],
@@ -54,13 +66,21 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
             headerView.addConstraint(c)
         }
         
-        navigationController?.navigationBar.shadowImage = UIImage()
+        removeNavBarBottomLine()
         
         scrollView.contentInset = UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
         scrollView.contentOffset = CGPoint(x: 0.0, y: -headerHeightDefault)
         scrollView.delegate = self
         
         scrollViewDidScroll(scrollView)
+    }
+    
+    /**
+        Removes the navigation bar's bottom line.
+    */
+    func removeNavBarBottomLine() {
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
     }
     
 
@@ -71,17 +91,19 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
             let height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
             headerHeightConstraint.constant = height
             
-            let alpha: CGFloat
-            switch deltaUnits {
-            case -CGFloat.max ..< headerHeightDefault - 64.0:
-                alpha = 0.0
-            case headerHeightDefault - 64.0 ..< headerHeightDefault:
-                let a = 1.0 - ((headerHeightDefault - deltaUnits) / 64.0)
-                alpha = a
-            default:
-                alpha = 1.0
+            if hidesNavigationBar {
+                let alpha: CGFloat
+                switch deltaUnits {
+                case -CGFloat.max ..< headerHeightDefault - 64.0:
+                    alpha = 0.0
+                case headerHeightDefault - 64.0 ..< headerHeightDefault:
+                    let a = 1.0 - ((headerHeightDefault - deltaUnits) / 64.0)
+                    alpha = a
+                default:
+                    alpha = 1.0
+                }
+                navigationController?.navigationBar.alpha = alpha
             }
-            navigationController?.navigationBar.alpha = alpha
         }
     }
 }
