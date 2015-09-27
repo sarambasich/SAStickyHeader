@@ -35,8 +35,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     
     /// The constraint dictating the height of the header view
     var headerHeightConstraint: NSLayoutConstraint! {
-        if let cs = headerView.constraints() as? [NSLayoutConstraint],
-          let c = cs.filter({ $0.firstItem === self.headerView && $0.firstAttribute == NSLayoutAttribute.Height }).first {
+        if let c = headerView.constraints.filter({ $0.firstItem === self.headerView && $0.firstAttribute == NSLayoutAttribute.Height }).first {
             return c
         }
         
