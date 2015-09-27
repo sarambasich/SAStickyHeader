@@ -38,7 +38,8 @@ class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDa
         
         if scrollView === tableView {
             let deltaUnits = scrollView.contentOffset.y + headerHeightDefault
-            let scale: CGFloat = 1 + fabs(deltaUnits / headerHeightDefault)
+            let changedUnitsHeaderHeightRatio = fabs(deltaUnits / headerHeightDefault)
+            let scale: CGFloat = 1 + (changedUnitsHeaderHeightRatio * 2.0)
             if scrollView.contentOffset.y < -headerHeightDefault {
                 stickyHeaderImage.transform = CGAffineTransformMakeScale(scale, scale)
             } else {
@@ -61,7 +62,7 @@ class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDa
     
     // MARK: Event handlers
     @IBAction private func didSelectBarButtonItem(sender: UIBarButtonItem) {
-        println(sender.description)
+        print(sender.description)
     }
     
     
@@ -75,7 +76,7 @@ class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
         cell.textLabel?.text = "Cell #\(indexPath.row)"
         return cell
     }
