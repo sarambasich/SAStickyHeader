@@ -36,28 +36,7 @@ class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDa
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         
-        if scrollView === tableView {
-            let deltaUnits = scrollView.contentOffset.y + headerHeightDefault
-            let changedUnitsHeaderHeightRatio = fabs(deltaUnits / headerHeightDefault)
-            let scale: CGFloat = 1 + (changedUnitsHeaderHeightRatio * 2.0)
-            if scrollView.contentOffset.y < -headerHeightDefault {
-                stickyHeaderImage.transform = CGAffineTransformMakeScale(scale, scale)
-            } else {
-                stickyHeaderImage.transform = CGAffineTransformIdentity
-            }
-            
-            
-            switch deltaUnits {
-            case -CGFloat.max ..< headerHeightDefault - 64.0:
-                imageViewTopConstraint.constant = -(0.3 * deltaUnits)
-            case headerHeightDefault - 64.0 ..< headerHeightDefault:
-                imageViewTopConstraint.constant = -(0.3 * deltaUnits)
-            default:
-                imageViewTopConstraint.constant = 0.0
-            }
-            
-            view.layoutIfNeeded()
-        }
+        
     }
     
     // MARK: Event handlers

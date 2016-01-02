@@ -78,8 +78,8 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
         Removes the navigation bar's bottom line.
     */
     func removeNavBarBottomLine() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
     }
     
 
@@ -101,6 +101,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
                 default:
                     alpha = 1.0
                 }
+                
                 navigationController?.navigationBar.alpha = alpha
             }
         }
