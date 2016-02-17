@@ -8,5 +8,10 @@ Sticky parallax header view for UIScrollView
 - Easy to use
 - Friendly to interface builder
 
-## Demo
-Screenshots coming soon
+## Implementation
+![../SAStickyHeaderDemo/NavBarExample.gif](Navigation bar example)
+
+![../SAStickyHeaderDemo/NoNavBarExample.gif](No navigation bar example)
+
+## How to use
+
