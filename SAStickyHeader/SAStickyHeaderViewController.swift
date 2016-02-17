@@ -13,9 +13,9 @@ import UIKit
 */
 class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     /// The header view itself, or the behind view
-    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerView: UIView?
     /// The scroll view containing our content, or the front view.
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView?
     
     /// Default header height - how tall to set the header view
     /// when the scroll offset is zero.
@@ -26,7 +26,9 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     var hidesNavigationBar: Bool = true {
         didSet {
             if hidesNavigationBar {
-                scrollViewDidScroll(scrollView)
+                if let scrollView = scrollView {
+                    scrollViewDidScroll(scrollView)
+                }
             } else {
                 navigationController?.navigationBar.alpha = 1.0
             }
@@ -35,7 +37,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     
     /// The constraint dictating the height of the header view
     var headerHeightConstraint: NSLayoutConstraint! {
-        if let c = headerView.constraints.filter({ $0.firstItem === self.headerView && $0.firstAttribute == NSLayoutAttribute.Height }).first {
+        if let c = headerView?.constraints.filter({ $0.firstItem === self.headerView && $0.firstAttribute == .Height }).first {
             return c
         }
         
@@ -52,26 +54,30 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
         Finalizes and sets all views to their 'initial' state.
     */
     private func configureViews() {
-        if headerView.superview != view {
-            view.addSubview(headerView)
+        if headerView?.superview != view {
+            view.addSubview(headerView!)
         }
         
-        if scrollView.superview != view {
-            view.addSubview(scrollView)
+        if scrollView?.superview != view {
+            view.addSubview(scrollView!)
         }
         
         if headerHeightConstraint == nil {
-            let c = NSLayoutConstraint(item: headerView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: headerHeightDefault)
-            headerView.addConstraint(c)
+            if let headerView = headerView {
+                let c = NSLayoutConstraint(item: headerView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: headerHeightDefault)
+                headerView.addConstraint(c)
+            }
         }
         
         removeNavBarBottomLine()
         
-        scrollView.contentInset = UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
-        scrollView.contentOffset = CGPoint(x: 0.0, y: -headerHeightDefault)
-        scrollView.delegate = self
+        scrollView?.contentInset = UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView?.contentOffset = CGPoint(x: 0.0, y: -headerHeightDefault)
+        scrollView?.delegate = self
         
-        scrollViewDidScroll(scrollView)
+        if let scrollView = scrollView {
+            scrollViewDidScroll(scrollView)
+        }
     }
     
     /**

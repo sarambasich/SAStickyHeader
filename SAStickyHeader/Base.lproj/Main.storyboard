@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZ1-hO-qm1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uZ1-hO-qm1">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--My Sticker Header View Controller-->
@@ -49,7 +49,7 @@
                                     <outlet property="delegate" destination="Wge-Xs-3XA" id="Rge-iy-4dN"/>
                                 </connections>
                             </tableView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLc-zb-SYH">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLc-zb-SYH" userLabel="Header view">
                                 <rect key="frame" x="0.0" y="64" width="600" height="192"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Forest" translatesAutoresizingMaskIntoConstraints="NO" id="bfM-mA-5fV">
@@ -128,10 +128,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="headerView" destination="sLc-zb-SYH" id="mqK-sT-KD3"/>
+                        <outlet property="headerView" destination="sLc-zb-SYH" id="z3A-ZV-6W6"/>
                         <outlet property="imageViewTopConstraint" destination="dwR-3h-rOF" id="dUO-jx-7Q9"/>
                         <outlet property="labelCenterY" destination="qDP-76-t1k" id="BAs-2h-kCa"/>
-                        <outlet property="scrollView" destination="xA5-9R-zlw" id="r1q-Si-DFy"/>
+                        <outlet property="scrollView" destination="xA5-9R-zlw" id="uik-OH-GiX"/>
                         <outlet property="stickyHeaderImage" destination="bfM-mA-5fV" id="gGR-rt-jfF"/>
                         <outlet property="tableView" destination="xA5-9R-zlw" id="vlz-UW-qsu"/>
                         <outlet property="view" destination="XWc-ka-FnA" id="w3b-o4-shy"/>
