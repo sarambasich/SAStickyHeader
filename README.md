@@ -1,10 +1,10 @@
 # SAStickyHeader
-Sticky parallax header view for UIScrollView
+Sticky parallax header view for UIScrollView using Auto-Layout constraints
 
 ## Description
 - Library that adds parallax and sticky header functionality to `UIScrollView` 
  objects
-- Uses Auto-Layout
+- Uses Auto-Layout constraint
 - Extremely small footprint
 - Easy to use
 - Friendly to interface builder
