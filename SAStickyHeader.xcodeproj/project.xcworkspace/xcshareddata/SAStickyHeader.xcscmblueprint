@@ -10,7 +10,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BD93DFC7-CF55-40AC-814C-FA42D14E897A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "09236C18B792473BBCD7DDA87E0FD805D950DF14" : "",
-    "CCA07C0152051E899947044FAE78AD30C59AA185" : "SAStickyHeader"
+    "CCA07C0152051E899947044FAE78AD30C59AA185" : "SAStickyHeader\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SAStickyHeader",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

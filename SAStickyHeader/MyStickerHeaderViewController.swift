@@ -10,15 +10,15 @@ import UIKit
 
 class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDataSource, UITableViewDelegate {
     /// Table view
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
     /// Sticky header's image
-    @IBOutlet private weak var stickyHeaderImage: UIImageView!
+    @IBOutlet fileprivate weak var stickyHeaderImage: UIImageView!
     
     /// Label's center Y constraint
-    @IBOutlet private weak var labelCenterY: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var labelCenterY: NSLayoutConstraint!
     
     /// Image view top constraint
-    @IBOutlet private weak var imageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var imageViewTopConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,30 +31,30 @@ class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         
         
     }
     
     // MARK: Event handlers
-    @IBAction private func didSelectBarButtonItem(sender: UIBarButtonItem) {
+    @IBAction fileprivate func didSelectBarButtonItem(_ sender: UIBarButtonItem) {
         print(sender.description)
     }
     
     
     // MARK: - UITableViewDataSource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 50
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
-        cell.textLabel?.text = "Cell #\(indexPath.row)"
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        cell.textLabel?.text = "Cell #\((indexPath as NSIndexPath).row)"
         return cell
     }
 }
