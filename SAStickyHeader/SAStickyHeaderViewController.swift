@@ -37,7 +37,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     
     /// The constraint dictating the height of the header view
     var headerHeightConstraint: NSLayoutConstraint! {
-        if let c = headerView?.constraints.filter({ $0.firstItem === self.headerView && $0.firstAttribute == .Height }).first {
+        if let c = headerView?.constraints.filter({ $0.firstItem === self.headerView && $0.firstAttribute == .height }).first {
             return c
         }
         
@@ -53,7 +53,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     /**
         Finalizes and sets all views to their 'initial' state.
     */
-    private func configureViews() {
+    fileprivate func configureViews() {
         if headerView?.superview != view {
             view.addSubview(headerView!)
         }
@@ -64,7 +64,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
         
         if headerHeightConstraint == nil {
             if let headerView = headerView {
-                let c = NSLayoutConstraint(item: headerView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: headerHeightDefault)
+                let c = NSLayoutConstraint(item: headerView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: headerHeightDefault)
                 headerView.addConstraint(c)
             }
         }
@@ -90,7 +90,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     
 
     // MARK: - UIScrollViewDelegate
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             let deltaUnits = scrollView.contentOffset.y + headerHeightDefault
             let height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
@@ -99,7 +99,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
             if hidesNavigationBar {
                 let alpha: CGFloat
                 switch deltaUnits {
-                case -CGFloat.max ..< headerHeightDefault - 64.0:
+                case -CGFloat.greatestFiniteMagnitude ..< headerHeightDefault - 64.0:
                     alpha = 0.0
                 case headerHeightDefault - 64.0 ..< headerHeightDefault:
                     let a = 1.0 - ((headerHeightDefault - deltaUnits) / 64.0)
