@@ -11,19 +11,19 @@ import UIKit
 /**
     Class implementing a sticky header layout.
 */
-class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
+open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
     /// The header view itself, or the behind view
-    @IBOutlet weak var headerView: UIView?
+    @IBOutlet open weak var headerView: UIView?
     /// The scroll view containing our content, or the front view.
-    @IBOutlet weak var scrollView: UIScrollView?
+    @IBOutlet open weak var scrollView: UIScrollView?
     
     /// Default header height - how tall to set the header view
     /// when the scroll offset is zero.
-    var headerHeightDefault: CGFloat = 192.0
+    open var headerHeightDefault: CGFloat = 192.0
     
     /// Whether to hide the navigation bar when the top of the table
     /// view content is reached via scrolling
-    var hidesNavigationBar: Bool = true {
+    open var hidesNavigationBar: Bool = true {
         didSet {
             if hidesNavigationBar {
                 if let scrollView = scrollView {
@@ -44,12 +44,12 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
         return nil
     }
     
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         configureViews()
     }
-    
+
     /**
         Finalizes and sets all views to their 'initial' state.
     */
@@ -68,9 +68,7 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
                 headerView.addConstraint(c)
             }
         }
-        
-        removeNavBarBottomLine()
-        
+
         scrollView?.contentInset = UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
         scrollView?.contentOffset = CGPoint(x: 0.0, y: -headerHeightDefault)
         scrollView?.delegate = self
@@ -79,18 +77,10 @@ class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
             scrollViewDidScroll(scrollView)
         }
     }
-    
-    /**
-        Removes the navigation bar's bottom line.
-    */
-    func removeNavBarBottomLine() {
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
-    }
-    
+
 
     // MARK: - UIScrollViewDelegate
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             let deltaUnits = scrollView.contentOffset.y + headerHeightDefault
             let height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
