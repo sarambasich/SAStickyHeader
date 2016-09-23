@@ -80,7 +80,7 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
 
 
     // MARK: - UIScrollViewDelegate
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             let deltaUnits = scrollView.contentOffset.y + headerHeightDefault
             let height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
