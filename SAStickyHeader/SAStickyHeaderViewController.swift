@@ -48,6 +48,13 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
         super.viewDidLoad()
         
         configureViews()
+        configureKeyboardSupport()
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        stopKeyboardSupport()
     }
 
     /**
@@ -76,6 +83,36 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
         if let scrollView = scrollView {
             scrollViewDidScroll(scrollView)
         }
+    }
+
+    func configureKeyboardSupport() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+
+    func stopKeyboardSupport() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc override func keyboardWillHide(_ notification: Notification) {
+        guard let scrollView = scrollView, let userInfo = notification.userInfo as? [String: AnyObject],
+        let _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
+            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
+                return
+        }
+
+        scrollView.contentInset =
+            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.frame = CGRect(x: scrollView.frame.origin.x, y: scrollView.frame.origin.y,
+                                  width: scrollView.frame.size.width,
+                                  height: view.frame.size.height - keyboardFrame.size.height)
+    }
+
+    @objc override func keyboardWillShow(_ notification: Notification) {
+        scrollView?.contentInset =
+            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
     }
 
 
