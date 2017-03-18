@@ -12,6 +12,7 @@ import UIKit
     Class implementing a sticky header layout.
 */
 open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
+
     /// The header view itself, or the behind view
     @IBOutlet open weak var headerView: UIView?
     /// The scroll view containing our content, or the front view.
@@ -37,11 +38,14 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
     
     /// The constraint dictating the height of the header view
     var headerHeightConstraint: NSLayoutConstraint! {
-        if let c = headerView?.constraints.filter({ $0.firstItem === self.headerView && $0.firstAttribute == .height }).first {
-            return c
+        guard let constraint = headerView?.constraints.filter({
+            $0.firstItem === self.headerView &&
+                $0.firstAttribute == .height
+        }).first else {
+            return nil
         }
-        
-        return nil
+
+        return constraint
     }
     
     override open func viewDidLoad() {
@@ -62,10 +66,32 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
         configureKeyboardSupport()
     }
 
+    @objc func keyboardWillHide(_ notification: Notification) {
+        guard let scrollView = scrollView, let userInfo = notification.userInfo as? [String: AnyObject],
+            let _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
+            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
+                return
+        }
+
+        scrollView.contentInset =
+            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.frame = CGRect(x: scrollView.frame.origin.x, y: scrollView.frame.origin.y,
+                                  width: scrollView.frame.size.width,
+                                  height: view.frame.size.height - keyboardFrame.size.height)
+    }
+
+    @objc func keyboardWillShow(_ notification: Notification) {
+        scrollView?.contentInset =
+            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
+    }
+}
+
+private extension SAStickyHeaderViewController {
+
     /**
         Finalizes and sets all views to their 'initial' state.
     */
-    fileprivate func configureViews() {
+     func configureViews() {
         if headerView?.superview != view {
             view.addSubview(headerView!)
         }
@@ -90,58 +116,52 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
         }
     }
 
+    // MARK: Keyboard
     func configureKeyboardSupport() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
-                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
-                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: .UIKeyboardWillHide, object: nil)
     }
 
     func stopKeyboardSupport() {
         NotificationCenter.default.removeObserver(self)
     }
 
-    @objc override func keyboardWillHide(_ notification: Notification) {
-        guard let scrollView = scrollView, let userInfo = notification.userInfo as? [String: AnyObject],
-        let _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
-            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
-                return
+    // MARK: Navigation bar
+    func setNavigationBarAlpha(withOffset deltaUnits: CGFloat) {
+        guard hidesNavigationBar else {
+            navigationController?.navigationBar.alpha = 1.0
+            return
         }
 
-        scrollView.contentInset =
-            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
-        scrollView.frame = CGRect(x: scrollView.frame.origin.x, y: scrollView.frame.origin.y,
-                                  width: scrollView.frame.size.width,
-                                  height: view.frame.size.height - keyboardFrame.size.height)
+        let alpha: CGFloat
+        switch deltaUnits {
+        case -CGFloat.greatestFiniteMagnitude ..< headerHeightDefault - 64.0:
+            alpha = 0.0
+        case headerHeightDefault - 64.0 ..< headerHeightDefault:
+            let a = 1.0 - ((headerHeightDefault - deltaUnits) / 64.0)
+            alpha = a
+        default:
+            alpha = 1.0
+        }
+
+        navigationController?.navigationBar.alpha = alpha
     }
 
-    @objc override func keyboardWillShow(_ notification: Notification) {
-        scrollView?.contentInset =
-            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
-    }
+}
 
+// MARK: - UIScrollViewDelegate
+extension SAStickyHeaderViewController {
 
-    // MARK: - UIScrollViewDelegate
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
-            let deltaUnits = scrollView.contentOffset.y + headerHeightDefault
-            let height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
+            let deltaUnits = scrollView.contentOffset.y + headerHeightDefault,
+            height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
             headerHeightConstraint.constant = height
-            
-            if hidesNavigationBar {
-                let alpha: CGFloat
-                switch deltaUnits {
-                case -CGFloat.greatestFiniteMagnitude ..< headerHeightDefault - 64.0:
-                    alpha = 0.0
-                case headerHeightDefault - 64.0 ..< headerHeightDefault:
-                    let a = 1.0 - ((headerHeightDefault - deltaUnits) / 64.0)
-                    alpha = a
-                default:
-                    alpha = 1.0
-                }
-                
-                navigationController?.navigationBar.alpha = alpha
-            }
+            setNavigationBarAlpha(withOffset: deltaUnits)
         }
     }
 }
