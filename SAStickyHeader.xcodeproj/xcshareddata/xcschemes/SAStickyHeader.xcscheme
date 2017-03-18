@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8264E2A1B2A8E3C00D81E36"
-               BuildableName = "SAStickyHeader.app"
+               BlueprintIdentifier = "F85C20EA1E7DF91A00FB23FF"
+               BuildableName = "SAStickyHeader.framework"
                BlueprintName = "SAStickyHeader"
-               ReferencedContainer = "container:SAStickyHeader.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8264E3F1B2A8E3C00D81E36"
-               BuildableName = "SAStickyHeaderTests.xctest"
-               BlueprintName = "SAStickyHeaderTests"
                ReferencedContainer = "container:SAStickyHeader.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F8264E3F1B2A8E3C00D81E36"
-               BuildableName = "SAStickyHeaderTests.xctest"
-               BlueprintName = "SAStickyHeaderTests"
-               ReferencedContainer = "container:SAStickyHeader.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8264E2A1B2A8E3C00D81E36"
-            BuildableName = "SAStickyHeader.app"
-            BlueprintName = "SAStickyHeader"
-            ReferencedContainer = "container:SAStickyHeader.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -75,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8264E2A1B2A8E3C00D81E36"
-            BuildableName = "SAStickyHeader.app"
+            BlueprintIdentifier = "F85C20EA1E7DF91A00FB23FF"
+            BuildableName = "SAStickyHeader.framework"
             BlueprintName = "SAStickyHeader"
             ReferencedContainer = "container:SAStickyHeader.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -94,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8264E2A1B2A8E3C00D81E36"
-            BuildableName = "SAStickyHeader.app"
+            BlueprintIdentifier = "F85C20EA1E7DF91A00FB23FF"
+            BuildableName = "SAStickyHeader.framework"
             BlueprintName = "SAStickyHeader"
             ReferencedContainer = "container:SAStickyHeader.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

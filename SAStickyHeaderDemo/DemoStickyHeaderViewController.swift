@@ -1,5 +1,5 @@
 //
-//  MyStickerHeaderViewController.swift
+//  DemoStickyHeaderViewController.swift
 //  SAStickyHeader
 //
 //  Created by Stefan Arambasich on 9/17/2015.
@@ -8,7 +8,10 @@
 
 import UIKit
 
-class MyStickerHeaderViewController: SAStickyHeaderViewController, UITableViewDataSource, UITableViewDelegate {
+import SAStickyHeader
+
+class DemoStickyHeaderViewController: SAStickyHeaderViewController, UITableViewDataSource, UITableViewDelegate {
+
     /// Table view
     @IBOutlet fileprivate weak var tableView: UITableView!
     /// Sticky header's image

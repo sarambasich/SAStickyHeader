@@ -2,12 +2,12 @@
 //  SAStickyHeaderTests.swift
 //  SAStickyHeaderTests
 //
-//  Created by Stefan Arambasich on 6/11/2015.
-//  Copyright (c) 2015 Stefan Arambasich. All rights reserved.
+//  Created by Stefan Arambasich on 3/18/17.
+//  Copyright © 2017 Stefan Arambasich. All rights reserved.
 //
 
-import UIKit
 import XCTest
+@testable import SAStickyHeader
 
 class SAStickyHeaderTests: XCTestCase {
     
@@ -23,12 +23,12 @@ class SAStickyHeaderTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measure() {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }

@@ -142,8 +142,7 @@ private extension SAStickyHeaderViewController {
         case -CGFloat.greatestFiniteMagnitude ..< headerHeightDefault - 64.0:
             alpha = 0.0
         case headerHeightDefault - 64.0 ..< headerHeightDefault:
-            let a = 1.0 - ((headerHeightDefault - deltaUnits) / 64.0)
-            alpha = a
+            alpha = 1.0 - ((headerHeightDefault - deltaUnits) / 64.0)
         default:
             alpha = 1.0
         }
@@ -157,11 +156,11 @@ private extension SAStickyHeaderViewController {
 extension SAStickyHeaderViewController {
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == self.scrollView {
-            let deltaUnits = scrollView.contentOffset.y + headerHeightDefault,
-            height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
-            headerHeightConstraint.constant = height
-            setNavigationBarAlpha(withOffset: deltaUnits)
-        }
+        guard scrollView === self.scrollView else { return }
+
+        let deltaUnits = scrollView.contentOffset.y + headerHeightDefault,
+        height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
+        headerHeightConstraint.constant = height
+        setNavigationBarAlpha(withOffset: deltaUnits)
     }
 }
