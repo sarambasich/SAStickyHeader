@@ -5,11 +5,13 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "09236C18B792473BBCD7DDA87E0FD805D950DF14" : 0,
+    "8D077E672BF7C2FAA3AF7B24D8BFCF4B2AA296CB" : 9223372036854775807,
     "CCA07C0152051E899947044FAE78AD30C59AA185" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BD93DFC7-CF55-40AC-814C-FA42D14E897A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "09236C18B792473BBCD7DDA87E0FD805D950DF14" : "",
+    "8D077E672BF7C2FAA3AF7B24D8BFCF4B2AA296CB" : "..",
     "CCA07C0152051E899947044FAE78AD30C59AA185" : "SAStickyHeader\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SAStickyHeader",
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github-Locqus:LocqusStefan\/Service-Pro-iOS",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "09236C18B792473BBCD7DDA87E0FD805D950DF14"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:ArtisOracle\/totp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8D077E672BF7C2FAA3AF7B24D8BFCF4B2AA296CB"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ArtisOracle\/SAStickyHeader",
