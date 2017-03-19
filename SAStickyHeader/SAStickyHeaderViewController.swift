@@ -66,7 +66,7 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
         configureKeyboardSupport()
     }
 
-    @objc func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillBeHidden(_ notification: Notification) {
         guard let scrollView = scrollView, let userInfo = notification.userInfo as? [String: AnyObject],
             let _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
             let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
@@ -80,7 +80,7 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
                                   height: view.frame.size.height - keyboardFrame.size.height)
     }
 
-    @objc func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillBeShown(_ notification: Notification) {
         scrollView?.contentInset =
             UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
     }
@@ -119,10 +119,10 @@ private extension SAStickyHeaderViewController {
     // MARK: Keyboard
     func configureKeyboardSupport() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(_:)),
+                                               selector: #selector(keyboardWillBeShown(_:)),
                                                name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide(_:)),
+                                               selector: #selector(keyboardWillBeHidden(_:)),
                                                name: .UIKeyboardWillHide, object: nil)
     }
 
