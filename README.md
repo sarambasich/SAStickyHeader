@@ -2,7 +2,7 @@
 Sticky parallax header view for UIScrollView using Auto-Layout constraints
 
 ## Description
-- Library that adds parallax and sticky header functionality to `UIScrollView` 
+- Library that adds parallax and sticky header functionality to `UIScrollView`
  objects
 - Uses Auto-Layout constraint
 - Extremely small footprint
@@ -10,9 +10,9 @@ Sticky parallax header view for UIScrollView using Auto-Layout constraints
 - Friendly to interface builder
 
 ## Demo
-![Navigation bar example](SAStickyHeaderDemo/NavBarExample.gif)
+![Navigation bar example](demo/NavBarExample.gif)
 
-![No navigation bar example](SAStickyHeaderDemo/NoNavBarExample.gif)
+![No navigation bar example](demo/NoNavBarExample.gif)
 
 ## How to use
 - Subclass `SAStickyHeaderViewController`
