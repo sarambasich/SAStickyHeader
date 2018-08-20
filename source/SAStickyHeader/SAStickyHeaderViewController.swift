@@ -8,13 +8,18 @@
 
 import UIKit
 
-/**
-    Class implementing a sticky header layout.
-*/
+
+
+/// View controller subclass managing a "sticky header" that appears to scroll at a different rate
+/// than the scroll view itself.
 open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate {
+
+    // MARK: -
+    // MARK: Properties
 
     /// The header view itself, or the behind view
     @IBOutlet open weak var headerView: UIView?
+
     /// The scroll view containing our content, or the front view.
     @IBOutlet open weak var scrollView: UIScrollView?
     
@@ -37,21 +42,24 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
     }
     
     /// The constraint dictating the height of the header view
-    var headerHeightConstraint: NSLayoutConstraint! {
-        guard let constraint = headerView?.constraints.filter({
-            $0.firstItem === self.headerView &&
-                $0.firstAttribute == .height
-        }).first else {
-            return nil
-        }
-
-        return constraint
+    var headerHeightConstraint: NSLayoutConstraint? {
+        return headerView?.constraints.filter({
+            $0.firstItem === self.headerView && $0.firstAttribute == .height
+        }).first
     }
+
+    // MARK: -
+    // MARK: View Lifecycle
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         configureViews()
+    }
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        startKeyboardSupport()
     }
 
     open override func viewWillDisappear(_ animated: Bool) {
@@ -60,50 +68,23 @@ open class SAStickyHeaderViewController: UIViewController, UIScrollViewDelegate 
         stopKeyboardSupport()
     }
 
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        configureKeyboardSupport()
-    }
-
-    @objc func keyboardWillBeHidden(_ notification: Notification) {
-        guard let scrollView = scrollView, let userInfo = notification.userInfo as? [String: AnyObject],
-            let _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
-            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
-                return
-        }
-
-        scrollView.contentInset =
-            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
-        scrollView.frame = CGRect(x: scrollView.frame.origin.x, y: scrollView.frame.origin.y,
-                                  width: scrollView.frame.size.width,
-                                  height: view.frame.size.height - keyboardFrame.size.height)
-    }
-
-    @objc func keyboardWillBeShown(_ notification: Notification) {
-        scrollView?.contentInset =
-            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
-    }
 }
+
+// MARK: -
+// MARK: Private
 
 private extension SAStickyHeaderViewController {
 
-    /**
-        Finalizes and sets all views to their 'initial' state.
-    */
+     /// Finalizes and sets all views to their 'initial' state.
      func configureViews() {
-        if headerView?.superview != view {
-            view.addSubview(headerView!)
-        }
-        
-        if scrollView?.superview != view {
-            view.addSubview(scrollView!)
-        }
-        
-        if headerHeightConstraint == nil {
-            if let headerView = headerView {
-                let c = NSLayoutConstraint(item: headerView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: headerHeightDefault)
-                headerView.addConstraint(c)
+        if headerHeightConstraint == nil, let headerView = headerView {
+            if #available(iOS 9, *) {
+                headerView.addConstraint(headerView.heightAnchor.constraint(equalToConstant: headerHeightDefault))
+            } else {
+                headerView.addConstraint(NSLayoutConstraint(item: headerView, attribute: .height,
+                                                            relatedBy: .equal, toItem: nil,
+                                                            attribute: .notAnAttribute, multiplier: 1.0,
+                                                            constant: headerHeightDefault))
             }
         }
 
@@ -116,21 +97,45 @@ private extension SAStickyHeaderViewController {
         }
     }
 
-    // MARK: Keyboard
-    func configureKeyboardSupport() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillBeShown(_:)),
-                                               name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillBeHidden(_:)),
-                                               name: .UIKeyboardWillHide, object: nil)
+    // MARK: -
+    // MARK: Keyboard Support
+
+    func startKeyboardSupport() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillBeShown(_:)),
+            name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillBeHidden(_:)),
+            name: .UIKeyboardWillHide, object: nil)
     }
 
     func stopKeyboardSupport() {
         NotificationCenter.default.removeObserver(self)
     }
 
+    @objc func keyboardWillBeHidden(_ notification: Notification) {
+        guard let scrollView = scrollView, let userInfo = notification.userInfo as? [String: AnyObject],
+            let _ = userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval,
+            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.cgRectValue else {
+                return
+        }
+
+        scrollView.contentInset = UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.frame = CGRect(x: scrollView.frame.origin.x, y: scrollView.frame.origin.y,
+                                  width: scrollView.frame.size.width,
+                                  height: view.frame.size.height - keyboardFrame.size.height)
+    }
+
+    @objc func keyboardWillBeShown(_ notification: Notification) {
+        scrollView?.contentInset =
+            UIEdgeInsets(top: headerHeightDefault, left: 0.0, bottom: 0.0, right: 0.0)
+    }
+
+    // MARK: -
     // MARK: Navigation bar
+
     func setNavigationBarAlpha(withOffset deltaUnits: CGFloat) {
         guard hidesNavigationBar else {
             navigationController?.navigationBar.alpha = 1.0
@@ -159,8 +164,9 @@ extension SAStickyHeaderViewController {
         guard scrollView === self.scrollView else { return }
 
         let deltaUnits = scrollView.contentOffset.y + headerHeightDefault,
-        height = max(0, min(headerHeightDefault - deltaUnits, headerHeightDefault - deltaUnits))
-        headerHeightConstraint.constant = height
+            height = max(0, headerHeightDefault - deltaUnits)
+        headerHeightConstraint?.constant = height
         setNavigationBarAlpha(withOffset: deltaUnits)
     }
+
 }
